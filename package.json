@@ -12,12 +12,13 @@
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "chai": "^4.3.4",
+    "eslint": "^7.32.0",
     "mocha": "^9.0.3",
     "ts-mocha": "^8.0.0",
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx eslint . --ext .ts; npx tsc",
     "test": "yarn run build && npx ts-mocha test/*.ts"
   }
 }
