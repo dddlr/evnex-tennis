@@ -177,5 +177,78 @@ describe('Tennis match', () => {
             testMatch(pointsWonBy);
         });
 
+        it('should work for a typical match (player 1 wins, 7-5)', () => {
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+
+            assert.equal(match.score(), '5-0');
+
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+
+            assert.equal(match.score(), '5-5');
+
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            assert.equal(match.score(), '6-5');
+
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            assert.equal(match.score(), '7-5, player 1 won match');
+        });
+
+        it('should work for a tie-break match (6-6)', () => {
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+
+            assert.equal(match.score(), '5-0');
+
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+
+            assert.equal(match.score(), '5-5');
+
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 2');
+            assert.equal(match.score(), '5-6');
+
+            for (let i = 0; i < 4; i++) match.pointWonBy('player 1');
+            assert.equal(match.score(), 'tiebreak, 0-0');
+
+            // Tie-break begins here
+
+            match.pointWonBy('player 1');
+            assert.equal(match.score(), 'tiebreak, 1-0');
+
+            match.pointWonBy('player 2');
+            assert.equal(match.score(), 'tiebreak, 1-1');
+
+            match.pointWonBy('player 1');
+            match.pointWonBy('player 2');
+
+            assert.equal(match.score(), 'tiebreak, 2-2');
+
+            match.pointWonBy('player 1');
+            match.pointWonBy('player 2');
+
+            assert.equal(match.score(), 'tiebreak, 3-3');
+
+            match.pointWonBy('player 2');
+            match.pointWonBy('player 2');
+            match.pointWonBy('player 2');
+            match.pointWonBy('player 2');
+
+            assert.equal(match.score(), '6-7, player 2 won match');
+        });
+
     });
-})
+});
