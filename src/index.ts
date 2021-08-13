@@ -205,20 +205,6 @@ export class Match {
     }
 
     /**
-     * Returns the raw set, game, and tie-break scores for the match
-     *
-     * Used for debugging purposes only.
-     *
-     * @returns string containing set scores, game scores and
-     *          tie-breaker scores
-     */
-    getRawScore(): string {
-        return `${this.scores.set[0]}-${this.scores.set[1]} ` +
-            `${this.scores.game[0]}-${this.scores.game[1]} ` +
-            `${this.scores.tiebreak[0]}-${this.scores.tiebreak[1]}`;
-    }
-
-    /**
      * Returns the formatted score of the game, as some combination
      * of the game/set/tie-breaker scores as relevant to the current
      * situation.
