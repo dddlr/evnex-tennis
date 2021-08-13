@@ -16,4 +16,34 @@ Tested on Node v15.12 on Linux.
 ~$ yarn run test
 ```
 
+Example usage
+-------------
+
+Based on the specification file. This can be run by typing `yarn run build`
+then `node dist/src/example.js`.
+
+```js
+const match = new Match('player 1', 'player 2');
+
+match.pointWonBy('player 1');
+match.pointWonBy('player 2');
+match.score(); // 0-0, 15-15
+
+match.pointWonBy('player 1');
+match.pointWonBy('player 1');
+match.score(); // 0-0, 40-15
+
+match.pointWonBy('player 2');
+match.pointWonBy('player 2');
+match.score(); // 0-0, Deuce
+
+match.pointWonBy('player 1');
+match.score(); // 0-0, Advantage player 1
+
+match.pointWonBy('player 1');
+match.score(); // 1-0
+
+// etc.
+```
+
 [github]: https://github.com/dddlr
