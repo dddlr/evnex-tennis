@@ -19,31 +19,14 @@ Tested on Node v15.12 on Linux.
 Example usage
 -------------
 
-Based on the specification file. This can be run by typing `yarn run build`
-then `node dist/src/example.js`.
+See `src/example.ts` for an example of how to create your own tennis matches.
 
-```js
-const match = new Match('player 1', 'player 2');
+This can be run by typing:
 
-match.pointWonBy('player 1');
-match.pointWonBy('player 2');
-match.score(); // 0-0, 15-15
-
-match.pointWonBy('player 1');
-match.pointWonBy('player 1');
-match.score(); // 0-0, 40-15
-
-match.pointWonBy('player 2');
-match.pointWonBy('player 2');
-match.score(); // 0-0, Deuce
-
-match.pointWonBy('player 1');
-match.score(); // 0-0, Advantage player 1
-
-match.pointWonBy('player 1');
-match.score(); // 1-0
-
-// etc.
+```sh
+~$ yarn run build
+~$ node dist/src/example.js
 ```
+
 
 [github]: https://github.com/dddlr
