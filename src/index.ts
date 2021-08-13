@@ -1,7 +1,3 @@
-/**
- * Code test created by Grant Wong for Evnex.
- */
-
 interface Score {
     game: [number, number];
     set: [number, number];
@@ -41,6 +37,13 @@ export class Match {
         this.players[Players.Player2] = player2;
     }
 
+    /**
+     * Converts 0, 1, 2, 3, 4 to the conventional tennis game scores of
+     * "love", "15", "30", "40" and "game".
+     *
+     * @param points number of points a player has
+     * @returns the corresponding point score term used in tennis
+     */
     private getPointString(points: number): string {
         if (points >= this.customPointStrings.length) {
             return points.toString();
@@ -63,7 +66,7 @@ export class Match {
     }
 
     /**
-     * Process a player winning a point during non-tiebreak gameplay.
+     * Processes a player winning a point during regular gameplay.
      *
      * @param playerIndex which player won the point
      */
@@ -93,11 +96,17 @@ export class Match {
         }
     }
 
+    /**
+     * Processes a player winning a point during tiebreak gameplay.
+     *
+     * @param playerIndex which player won the point
+     */
     private winTieBreakPoint(playerIndex: Players) {
         this.scores.tiebreak[playerIndex]++;
 
         const scoreDifference = Math.abs(
-            this.scores.tiebreak[Players.Player1] - this.scores.game[Players.Player2]
+            this.scores.tiebreak[Players.Player1] -
+            this.scores.game[Players.Player2]
         );
 
         const tieBreakWon = (
@@ -119,7 +128,11 @@ export class Match {
         }
     }
 
-    private updateSetStatus() {
+    /**
+     * Updates the status of the match, namely whether the game
+     * has been won and whether to switch to tie-break rules.
+     */
+    private updateMatchStatus() {
 
         // Check if the match has been won by any player
         // (without the need for tie-break)
@@ -149,8 +162,8 @@ export class Match {
         // Check if tie-break game should be played now
 
         const playTieBreak = (
-            this.scores.set[Players.Player1] === 6 &&
-            this.scores.set[Players.Player2] === 6
+            this.scores.set[Players.Player1] === Match.SET_TIEBREAK_THRESHOLD &&
+            this.scores.set[Players.Player2] === Match.SET_TIEBREAK_THRESHOLD
         );
 
         if (playTieBreak) this.playTieBreak = true;
@@ -176,7 +189,7 @@ export class Match {
      *
      * @param player player's name, as a string
      */
-    pointWonBy(player: string) {
+    pointWonBy(player: string): void {
         const playerIndex = this.getPlayerIndex(player);
 
         if (this.winner !== Players.None) throw Error('Game already finished');
@@ -188,7 +201,7 @@ export class Match {
             this.winPoint(playerIndex);
         }
 
-        this.updateSetStatus();
+        this.updateMatchStatus();
     }
 
     /**
@@ -229,8 +242,9 @@ export class Match {
             `${setScores[Players.Player2]}`;
         let gameScoreString = '';
 
-
-        if (this.playTieBreak) {
+        if (this.winner !== Players.None) {
+            gameScoreString = `${this.players[this.winner]} won match`;
+        } else if (this.playTieBreak) {
             // Playing tie-break, so don't display anything except
             // the tie-break score
             setScoreString = '';
@@ -262,7 +276,4 @@ export class Match {
         return fullScore;
     }
 
-
 }
-
-// TODO eslint
