@@ -12,9 +12,9 @@ enum Players {
 
 export class Match {
     static SET_TIEBREAK_THRESHOLD = 6;
-    static SET_WINNING_THRESHOLD = 2;
     static GAME_TIEBREAK_THRESHOLD = 4;
-    static GAME_WINNING_THRESHOLD = 2;
+    static WINNING_THRESHOLD = 2;
+    static FINAL_TIEBREAK_THRESHOLD = 7;
 
     // From "Tennis scoring system", on Wikipedia
     private customPointStrings = ['love', '15', '30', '40', 'game'];
@@ -81,7 +81,7 @@ export class Match {
 
         if (
             Math.max(...this.scores.game) >= Match.GAME_TIEBREAK_THRESHOLD &&
-            gameScoreDifference >= Match.GAME_WINNING_THRESHOLD
+            gameScoreDifference >= Match.WINNING_THRESHOLD
         ) {
             if (this.scores.game[Players.Player1] > this.scores.game[Players.Player2]) {
                 // Player 1 has won the game
@@ -110,8 +110,8 @@ export class Match {
         );
 
         const tieBreakWon = (
-            Math.max(...this.scores.tiebreak) >= Match.GAME_TIEBREAK_THRESHOLD &&
-            scoreDifference >= Match.GAME_WINNING_THRESHOLD
+            Math.max(...this.scores.tiebreak) >= Match.FINAL_TIEBREAK_THRESHOLD &&
+            scoreDifference >= Match.WINNING_THRESHOLD
         );
 
         if (tieBreakWon) {
@@ -143,7 +143,7 @@ export class Match {
 
         const matchWon = (
             Math.max(...this.scores.set) >= Match.SET_TIEBREAK_THRESHOLD &&
-            setScoreDifference >= Match.SET_WINNING_THRESHOLD
+            setScoreDifference >= Match.WINNING_THRESHOLD
         );
 
         if (matchWon) {
@@ -247,7 +247,7 @@ export class Match {
         } else if (this.playTieBreak) {
             // Playing tie-break, so don't display anything except
             // the tie-break score
-            setScoreString = '';
+            setScoreString = 'tiebreak';
             gameScoreString = `${tieBreakScores[Players.Player1]}-` +
                 `${tieBreakScores[Players.Player2]}`;
 
