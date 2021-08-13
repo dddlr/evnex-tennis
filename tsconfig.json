@@ -1,0 +1,11 @@
+{
+    "extends": "@tsconfig/node12/tsconfig.json",
+
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "outDir": "dist"
+    },
+    "include": ["src/*.ts", "test/"],
+    "exclude": ["node_modules"],
+}
