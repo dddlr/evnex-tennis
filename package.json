@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Take-home test for Evnex",
   "main": "index.js",
-  "author": "git@wong.nz",
+  "author": "Grant Wong <hello@wong.nz>",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@tsconfig/node12": "^1.0.9",
